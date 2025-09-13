@@ -2,7 +2,7 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/projects-banner-dark.png">
-  <img src="assets/GC300.png" alt="Grey Cat — проекты и MVP" width="300px">
+  <img src="assets/gc300.png" alt="Grey Cat — проекты и MVP" width="100px" height="100px">
 </picture>
 
 ---
