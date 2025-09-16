@@ -1,0 +1,24 @@
+replicaCount: 2
+image:
+  repository: ghcr.io/greycatvp/ai-control-tower
+  tag: latest
+service:
+  type: ClusterIP
+  port: 8000
+ingress:
+  enabled: true
+  className: nginx
+  host: ai-control.example.com
+postgres:
+  enabled: true
+  auth:
+    database: ai_control
+    username: ai
+    password: ai123
+redis:
+  enabled: true
+minio:
+  enabled: true
+  auth:
+    rootUser: minio
+    rootPassword: minio123
