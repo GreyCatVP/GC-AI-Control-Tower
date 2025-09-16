@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-control-tower
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: ai-control-tower
+  template:
+    metadata:
+      labels:
+        app: ai-control-tower
+    spec:
+      containers:
+        - name: app
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: 8000
+          env:
+            - name: POSTGRES_URL
+              value: "postgresql+asyncpg://{{ .Values.postgres.auth.username }}:{{ .Values.postgres.auth.password }}@{{ .Release.Name }}-postgres:5432/{{ .Values.postgres.auth.database }}"
+            - name: REDIS_URL
+              value: "redis://{{ .Release.Name }}-redis:6379"
+            - name: MINIO_ENDPOINT
+              value: "{{ .Release.Name }}-minio:9000"
+            - name: MINIO_ACCESS_KEY
+              value: "{{ .Values.minio.auth.rootUser }}"
+            - name: MINIO_SECRET_KEY
+              value: "{{ .Values.minio.auth.rootPassword }}"
