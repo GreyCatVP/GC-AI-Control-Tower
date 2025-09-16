@@ -1,0 +1,4 @@
+sqlalchemy[asyncio]==2.0.36
+asyncpg==0.30.0
+redis==5.0.1
+minio==7.2.0
