@@ -1,0 +1,19 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r control-tower-api/requirements.txt
+      - run: pytest control-tower-api/tests/
+      - run: docker build -t ghcr.io/greycatvp/ai-control-tower:latest control-tower-api/
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - run: docker push ghcr.io/greycatvp/ai-control-tower:latest
